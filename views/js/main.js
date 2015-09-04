@@ -422,7 +422,9 @@ var resizePizzas = function(size) {
   changeSliderLabel(size);
 
   // Returns the size difference to change a pizza element from one size to another. Called by changePizzaSlices(size).
-  function determineDx (elem, size) {
+  //A lot of unnecessary calculations to simply change the width of a pizza slightly. Removed.
+ 
+ /* function determineDx (elem, size) {
     var oldwidth = elem.offsetWidth;
     var windowwidth = document.querySelector("#randomPizzas").offsetWidth;
     var oldsize = oldwidth / windowwidth;
@@ -447,13 +449,39 @@ var resizePizzas = function(size) {
 
     return dx;
   }
+*/
 
   // Iterates through pizza elements on the page and changes their widths
   function changePizzaSizes(size) {
-    for (var i = 0; i < document.querySelectorAll(".randomPizzaContainer").length; i++) {
-      var dx = determineDx(document.querySelectorAll(".randomPizzaContainer")[i], size);
-      var newwidth = (document.querySelectorAll(".randomPizzaContainer")[i].offsetWidth + dx) + 'px';
-      document.querySelectorAll(".randomPizzaContainer")[i].style.width = newwidth;
+    
+    //querySelectorAll was being repeatedly called in the for loop
+    //replaced with randomPizzas variable
+
+    var randomPizzas = document.querySelectorAll(".randomPizzaContainer");
+
+    //New width of pizza
+    var newWidth = 0;
+
+    switch(size) {
+
+        case "1":
+            newWidth = 25;
+            break;
+        case "2":
+            newWidth = 33.3;
+            break;
+        case "3":
+            newWidth = 50;
+            break;
+        default:
+            console.log("bug in changePizzaSizes");
+
+    }
+
+    //Layout thrashing occurring here previously
+    //Resizing width based on percentage 
+    for (var i = 0; i < randomPizzas.length; i++) {
+        randomPizzas[i].style.width = newWidth + '%';
     }
   }
 
@@ -525,7 +553,10 @@ window.addEventListener('scroll', updatePositions);
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 200; i++) {
+
+
+  //200 pizzas is excessive; arbitrarily setting it instead to 50
+  for (var i = 0; i < 50; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
