@@ -12,11 +12,6 @@
                         Desktop: 85/100 
     -->
 
-    <!-- Hmm, what is the impact of web fonts on speed? Measure it... -->
-    <!-- filled out url for web font -->
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
-    <!-- <link href="css/style.css" rel="stylesheet"> -->
-
     <!-- CSS render blocking unnecessary unless printing; adding media type to ignore -->
     <link href="css/print.css" rel="stylesheet" media="print">
 
@@ -76,17 +71,9 @@
 
     </style>
 
-    <script>
-      (function(w,g){w['GoogleAnalyticsObject']=g;
-      w[g]=w[g]||function(){(w[g].q=w[g].q||[]).push(arguments)};w[g].l=1*new Date();})(window,'ga');
-
-      // TODO: replace with your Google Analytics profile ID.
-      ga('create', 'UA-XXXX-Y');
-      ga('send', 'pageview');
-    </script>
-    <!-- Added async tag to analytics JS -->
-    <script async src="https://www.google-analytics.com/analytics.js"></script>
+    <!-- async to avoid blocking -->
     <script async src="js/perfmatters.js"></script>
+
   </head>
 
   <body>
@@ -132,4 +119,26 @@
       <p>&copy; Web Performance 2014 <span id="crp-stats"></span></p>
     </footer>
   </body>
+
+  <!-- Loading web fonts after page is loaded. -->
+  <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
+  <script>
+      WebFont.load({
+        google: {
+          families: ['Open Sans:400,700']
+      }
+  });
+  </script>
+  
+  <script>
+      (function(w,g){w['GoogleAnalyticsObject']=g;
+          w[g]=w[g]||function(){(w[g].q=w[g].q||[]).push(arguments)};w[g].l=1*new Date();})(window,'ga');
+
+      // TODO: replace with your Google Analytics profile ID.
+      ga('create', 'UA-XXXX-Y');
+      ga('send', 'pageview');
+  </script>
+
+
+
 </html>
