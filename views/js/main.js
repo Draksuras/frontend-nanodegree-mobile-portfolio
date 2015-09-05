@@ -526,7 +526,6 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 
 //Added this helper function to determine how far an element has been scrolled up
 //It is then used in the phase calculation in calculatePhases function
-
 function getScrollY(){
 
     var scrollY = document.body.scrollTop;
@@ -536,7 +535,9 @@ function getScrollY(){
 
 }
 
-
+//Helper function to precalculate the 'phases' used to animate
+//the background pizzas. Returns an array containing the repeated
+//values used to reposition the pizza objects.
 function calculatePhases(){
 
     var phases = [];
@@ -548,7 +549,6 @@ function calculatePhases(){
     }
 
     return phases;
-
 
 }
 
