@@ -498,6 +498,7 @@ var resizePizzas = function(size) {
 window.performance.mark("mark_start_generating"); // collect timing data
 
 // This for-loop actually creates and appends all of the pizzas when the page loads
+//50 rather than 200 pizzas are created
 for (var i = 2; i < 50; i++) {
   var pizzasDiv = document.getElementById("randomPizzas");
   pizzasDiv.appendChild(pizzaElementGenerator(i));
@@ -524,9 +525,9 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 }
 
 //Added this helper function to determine how far an element has been scrolled up
-//Which is then used in the phase calculation in updatePositions function
+//It is then used in the phase calculation in calculatePhases function
 
-function updateScrollY(){
+function getScrollY(){
 
     var scrollY = document.body.scrollTop;
 
@@ -536,6 +537,20 @@ function updateScrollY(){
 }
 
 
+function calculatePhases(){
+
+    var phases = [];
+    var scrollY = window.getScrollY();
+
+    for(var j=0; j < 5; j++){
+
+        phases.push(Math.sin((scrollY/1250) + j));
+    }
+
+    return phases;
+
+
+}
 
 
 // The following code for sliding background pizzas was pulled from Ilya's demo found at:
@@ -545,21 +560,15 @@ function updateScrollY(){
 //Replacing querySelectorAll with getElementsByClassName for speed improvement
 var items = document.getElementsByClassName('mover');
 
-
-
 // Moves the sliding background pizzas based on scroll position
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
-
-  var scrollY = window.updateScrollY();
-
+  var phases = window.calculatePhases();
 
   for (var i = 0; i < window.items.length; i++) {
-    var phase = Math.sin((scrollY / 1250) + (i % 5));
-    
-    window.items[i].style.left = window.items[i].basicLeft + 100 * phase + 'px';
+        window.items[i].style.left = window.items[i].basicLeft + 100 * phases[i % 5] + 'px';
   }
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
