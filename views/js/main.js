@@ -523,8 +523,17 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
   console.log("Average time to generate last 10 frames: " + sum / 10 + "ms");
 }
 
+//Added this helper function to determine how far an element has been scrolled up
+//Which is then used in the phase calculation in updatePositions function
+
+function updateScrollY(){
+
+    var scrollY = document.body.scrollTop;
+
+    return scrollY;
 
 
+}
 
 
 
@@ -544,10 +553,11 @@ function updatePositions() {
   window.performance.mark("mark_start_frame");
 
 
+  var scrollY = window.updateScrollY();
+
 
   for (var i = 0; i < window.items.length; i++) {
-    var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
-    console.log(phase, document.body.scrollTop/1250);
+    var phase = Math.sin((scrollY / 1250) + (i % 5));
     
     window.items[i].style.left = window.items[i].basicLeft + 100 * phase + 'px';
   }
