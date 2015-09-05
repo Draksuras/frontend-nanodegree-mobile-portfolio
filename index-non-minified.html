@@ -12,8 +12,10 @@
                         Desktop: 93-97/100 
     -->
 
-    <!-- CSS render blocking unnecessary unless printing; adding media type to ignore -->
-    <link href="css/print.css" rel="stylesheet" media="print">
+    <!-- CSS render blocking unnecessary unless printing; adding media type to ignore
+         No longer needed due to inlining all CSS -->
+
+    <!--<link href="css/print.css" rel="stylesheet" media="print"> -->
 
     <!-- Inlining CSS for speed improvement...could be minified for very slight improvement -->
 
@@ -120,7 +122,7 @@
     </footer>
   </body>
 
-  <!-- Loading web fonts after page is loaded. -->
+  <!-- Loading web fonts after page is loaded to reduce blocking time. -->
   <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
   <script>
       WebFont.load({
